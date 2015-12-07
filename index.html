@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>番番番</title>
-    <script src="pixi.dev.js"></script>
+    <script src="pixi.js"></script>
 </head>
 
 <body>
@@ -16,14 +16,17 @@
             game_width = window_width;
             ganke_height = game_width * 1.778;
         }
-        var stage = new PIXI.Stage(0xFFFFFF);
+        var stage = new PIXI.Container();
 
 
         var renderer = PIXI.autoDetectRenderer(game_width, game_height);
+        document.body.appendChild(renderer.view);
 
+        document.write(game_width);
 
         var sprite_back = PIXI.Sprite.fromImage("img/background_start@2x.png");
-        game_ratio = game_width/750;
+        game_ratio = game_width/375;
+        document.write(game_ratio);
         sprite_back.scale.x = sprite_back.scale.y = game_ratio;
         stage.addChild(sprite_back);
 
@@ -44,6 +47,11 @@
 
         sprite_help.on('click', click);
 
+        function click(eventData) {
+            sprite_help.scale.x += 0.3;
+            sprite_help.scale.y += 0.3;
+        }
+
         stage.addChild(sprite_help);
 
 
@@ -56,11 +64,17 @@
 
 
         document.body.appendChild(renderer.view);
-        renderer.render(stage);
+        animate();
 
-        function click() {
-            document.write("54545")
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            // render the root container
+            renderer.render(stage);
         }
+
 
     </script>
 </body>
