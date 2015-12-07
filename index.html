@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>番番番</title>
+    <script src="pixi.dev.js"></script>
+</head>
+
+<body>
+    <script>
+        var window_width = document.documentElement.scrollWidth;
+        var window_height = document.documentElement.scrollHeight;
+        var game_height = window_height;
+        var game_width = Math.floor(window_height/1.778);
+        if (game_width > window_width) {
+            game_width = window_width;
+            ganke_height = game_width * 1.778;
+        }
+        var stage = new PIXI.Stage(0xFFFFFF);
+
+
+        var renderer = PIXI.autoDetectRenderer(game_width, game_height);
+
+
+        var sprite_back = PIXI.Sprite.fromImage("img/background_start@2x.png");
+        game_ratio = game_width/750;
+        sprite_back.scale.x = sprite_back.scale.y = game_ratio;
+        stage.addChild(sprite_back);
+
+
+
+        var sprite_title =  PIXI.Sprite.fromImage("img/title@2x.png");
+        sprite_title.scale.x = sprite_title.scale.y = game_ratio;
+        sprite_title.position.x = game_width * 0.1187;
+        sprite_title.position.y = game_height * 0.1424;
+        stage.addChild(sprite_title);
+
+
+        var sprite_help = PIXI.Sprite.fromImage("img/help_start@2x.png");
+        sprite_help.interactive = true;
+        sprite_help.scale.x = sprite_help.scale.y = game_ratio;
+        sprite_help.position.x = game_width * 0.3467;
+        sprite_help.position.y = game_height * 0.698;
+
+        sprite_help.on('click', click);
+
+        stage.addChild(sprite_help);
+
+
+        var sprite_start = PIXI.Sprite.fromImage("img/開始遊戲@2x.png");
+        sprite_start.scale.x = sprite_start.scale.y = game_ratio;
+        sprite_start.position.x = game_width * 0.3453;
+        sprite_start.position.y = game_height * 0.63;
+        sprite_start.buttonMode = true;
+        stage.addChild(sprite_start);
+
+
+        document.body.appendChild(renderer.view);
+        renderer.render(stage);
+
+        function click() {
+            document.write("54545")
+        }
+
+    </script>
+</body>
+</html>
