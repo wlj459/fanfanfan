@@ -30,10 +30,11 @@
 
 //=======================================================================
         var rank = 1;
-        ready = true;
-        ready_num = 3;
-        start = false;
-        start_num = 30;//00:00
+        var ready = true;
+        var ready_num = 3;
+        var start = false;
+        var start_num = 15;//00:00
+        var stop = false;
 
         easy_p = new Array();
 
@@ -104,12 +105,12 @@
             fill : '#4e7e59'
         };
 
-
+        // 10开始的适配还没做
         var sprite_rank = new PIXI.Text(rank, style);
         sprite_rank.scale.x = sprite_rank.scale.y = game_ratio/2;
         sprite_rank.position.x = game_width * 0.48;
         sprite_rank.position.y = game_height * 0.1054;
-        stage.addChild(sprite_rank)
+        stage.addChild(sprite_rank);
 
 
 
@@ -127,6 +128,24 @@
         sprite_stop.position.y = game_height * 0.9288;
         stage.addChild(sprite_stop);
 
+        var h = null;
+        if (start_num > 9) {
+            h = "00:" + String(start_num);
+        }
+        else {
+            h = "00:0" + String(start_num);
+        }
+
+
+        var time_style = {
+            font : '40px Arial',
+            fill : '#4e7e59'
+        };
+        var sprite_start_num = new PIXI.Text(h, time_style);
+        sprite_start_num.scale.x = sprite_start_num.scale.y = game_ratio/2;
+        sprite_start_num.position.x = game_width * 0.848;
+        sprite_start_num.position.y = game_height * 0.1874;
+        stage.addChild(sprite_start_num);
 
         animate();
 
