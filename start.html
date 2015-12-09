@@ -144,11 +144,20 @@
             font : '40px Arial',
             fill : '#4e7e59'
         };
+        var ready_style = {
+            font : '80px Arial',
+            fill : '#ffffff'
+        };
         var sprite_start_num = new PIXI.Text(h, time_style);
         sprite_start_num.scale.x = sprite_start_num.scale.y = game_ratio/2;
         sprite_start_num.position.x = game_width * 0.848;
         sprite_start_num.position.y = game_height * 0.1874;
         stage.addChild(sprite_start_num);
+
+        var sprite_ready_num = new PIXI.Text(ready_num, ready_style);
+        sprite_ready_num.scale.x = sprite_ready_num.scale.y = game_ratio/2;
+        sprite_ready_num.position.x = game_width * 0.5;
+        sprite_ready_num.position.y = game_height * 0.5;
 
         animate();
 
@@ -168,7 +177,20 @@
                     stage.addChild(sprite_guan);
 
                 }
+                else{
+
+                }
+                sprite_ready_num.text = Math.floor(ready_num);
                 stage.addChild(sprite_grey);
+                stage.addChild(sprite_ready_num);
+                ready_num -= 0.02;
+                if (ready_num < 0){
+                    ready = false;
+                    start = true;
+                }
+            }
+            else{
+
             }
             renderer.render(stage);
         }
