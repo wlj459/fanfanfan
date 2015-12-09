@@ -28,6 +28,10 @@
         sprite_back.scale.x = sprite_back.scale.y = game_ratio;
         stage.addChild(sprite_back);
 
+
+        var sprite_grey = PIXI.Sprite.fromImage("img/background-拷贝-2@2x.png");
+        sprite_grey.scale.x = sprite_grey.scale.y = game_ratio;
+
 //=======================================================================
         var rank = 1;
         var ready = true;
@@ -74,7 +78,10 @@
                 if(chosenTiles.indexOf(candidate)==-1){
                     chosenTiles[i][j] = chosenTiles;
                     //easy_card[i][j] = new PIXI.Sprite.fromImage("img/xxx" + easy_card_list[candidate] + '.png')
-                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/card_back_230@2x.png");
+                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/第@2x.png");
+                    easy_card[i][j].position.x = easy_p[i][j][1];
+                    easy_card[i][j].position.y = easy_p[i][j][2];
+                    easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio;
                 }
             }
         }
@@ -89,7 +96,6 @@
                 easy_back[i][j].position.x = easy_p[i][j][1];
                 easy_back[i][j].position.y = easy_p[i][j][2];
                 easy_back[i][j].scale.x = easy_back[i][j].scale.y = game_ratio;
-                stage.addChild(easy_back[i][j]);
             }
         }
 
@@ -97,7 +103,6 @@
         sprite_di.scale.x = sprite_di.scale.y = game_ratio;
         sprite_di.position.x = game_width * 0.3693;
         sprite_di.position.y = game_height * 0.1154;
-        stage.addChild(sprite_di);
 
 
         var style = {
@@ -106,11 +111,10 @@
         };
 
         // 10开始的适配还没做
-        var sprite_rank = new PIXI.Text(rank, style);
-        sprite_rank.scale.x = sprite_rank.scale.y = game_ratio/2;
-        sprite_rank.position.x = game_width * 0.48;
-        sprite_rank.position.y = game_height * 0.1054;
-        stage.addChild(sprite_rank);
+        var sprite_rank_easy = new PIXI.Text(rank, style);
+        sprite_rank_easy.scale.x = sprite_rank_easy.scale.y = game_ratio/2;
+        sprite_rank_easy.position.x = game_width * 0.48;
+        sprite_rank_easy.position.y = game_height * 0.1054;
 
 
 
@@ -118,7 +122,6 @@
         sprite_guan.scale.x = sprite_guan.scale.y = game_ratio;
         sprite_guan.position.x = game_width * 0.5547;
         sprite_guan.position.y = game_height * 0.1154;
-        stage.addChild(sprite_guan);
 
 
         var sprite_stop =  PIXI.Sprite.fromImage("img/button_stop@2x.png");
@@ -153,8 +156,20 @@
         function animate() {
 
             requestAnimationFrame(animate);
+            if(ready){
+                if (rank<10) {
+                    for (i=1;i<=3;i++){
+                        for (j=1;j<=3;j++){
+                            stage.addChild(easy_card[i][j]);
+                        }
+                    }
+                    stage.addChild(sprite_di);
+                    stage.addChild(sprite_rank_easy);
+                    stage.addChild(sprite_guan);
 
-            // render the root container
+                }
+                stage.addChild(sprite_grey);
+            }
             renderer.render(stage);
         }
 
