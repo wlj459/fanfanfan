@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>番番番</title>
+    <script src="pixi.js"></script>
+</head>
+
+<body>
+    <script>
+        var window_width = document.documentElement.scrollWidth;
+        var window_height = document.documentElement.scrollHeight;
+        var game_height = window_height;
+        var game_width = Math.floor(window_height/1.778);
+        if (game_width > window_width) {
+            game_width = window_width;
+            ganke_height = game_width * 1.778;
+        }
+        var stage = new PIXI.Container();
+
+
+        var renderer = PIXI.autoDetectRenderer(game_width, game_height);
+        document.body.appendChild(renderer.view);
+
+        var sprite_back = PIXI.Sprite.fromImage("img/background@2x.png")
+        game_ratio = game_width/375;
+
+        sprite_back.scale.x = sprite_back.scale.y = game_ratio;
+        stage.addChild(sprite_back);
+
+//=======================================================================
+        var rank = 1;
+        ready = true;
+        ready_num = 3;
+        start = false;
+        start_num = 30;//00:00
+
+        easy_p = new Array();
+
+        
+        for (i=1; i<=3; i++)
+        {
+            easy_p[i] = new Array();
+           for (j=1; j<=3; j++){
+               easy_p[i][j] = new Array();
+               if (j == 1) {
+                   if (i * j == 1) {
+                       easy_p[i][j][1] = game_width * 0.013;
+                       easy_p[i][j][2] = game_height * 0.257 ;
+                   }
+                   else {
+                       easy_p[i][j][1] = easy_p[i-1][j][1];
+                       easy_p[i][j][2] = easy_p[i-1][j][2] + game_height * 0.1889;
+                   }
+               }
+               else{
+                   easy_p[i][j][1] = easy_p[i][j-1][1] + game_width * 0.3413;
+                   easy_p[i][j][2] = easy_p[i][j-1][2];
+               }
+           }
+        }
+
+        var texture_easy = PIXI.Texture.fromImage("img/card_back_230@2x.png");
+
+        var easy_back = new Array();
+        for (i=1; i<=3; i++){
+            easy_back[i] = new Array;
+            for (j=1; j<=3; j++){
+                easy_back[i][j] = new PIXI.Sprite(texture_easy);
+                easy_back[i][j].position.x = easy_p[i][j][1];
+                easy_back[i][j].position.y = easy_p[i][j][2];
+                stage.addChild(easy_back[i][j]);
+            }
+        }
+        animate();
+
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            // render the root container
+            renderer.render(stage);
+        }
+
+    </script>
+</body>
+</html>

@@ -40,13 +40,22 @@
 
         var style = {
             font : 'bold italic 15px Arial',
-            fill : '#7f7f7f',
+            fill : '#ffffff'
         };
 
-        var sprite_text = new PIXI.Text("进入游戏后,玩家将给定2秒钟时间记忆卡牌,倒计\n时结束后所有卡牌翻回反面.在15s内成对翻开所有\n卡牌即可通关,若在规定时间内未全部成对翻开或\n者翻到炸弹,则游戏失败.", style);
+
+        var sprite_grey = PIXI.Sprite.fromImage("img/background-拷贝-2@2x.png");
+        sprite_grey.scale.x = sprite_grey.scale.y = game_ratio;
+
+
+        var sprite_text = new PIXI.Text("进入游戏后,玩家将给定2秒钟时间记忆卡牌,倒计\n\n时结束后所有卡牌翻回反面.在15s内成对翻开所有\n\n卡牌即可通关,若在规定时间内未全部成对翻开或\n\n者翻到炸弹,则游戏失败.", style);
         sprite_text.scale.x = sprite_text.scale.y = game_ratio;
         sprite_text.position.x = game_width * 0.091;
         sprite_text.position.y = game_height * 0.33;
+
+
+
+
 
 
         var sprite_help_title = PIXI.Sprite.fromImage("img/title_help@2x.png");
@@ -63,10 +72,25 @@
 
         sprite_help.on('click', click);
 
-        function click(eventData) {
+        function click() {
             stage.addChild(sprite_back);
+            stage.addChild(sprite_grey);
             stage.addChild(sprite_help_title);
             stage.addChild(sprite_text);
+
+
+            var sprite_button = PIXI.Sprite.fromImage("img/button_new-拷贝@2x.png");
+            sprite_button.scale.x = sprite_button.scale.y = game_ratio;
+            sprite_button.interactive = true;
+            sprite_button.position.x = game_width * 0.367;
+            sprite_button.position.y = game_height * 0.53;
+            sprite_button.on("click", button);
+            stage.addChild(sprite_button);
+
+            function button() {
+                window.location.href="index.html";
+
+            }
         }
 
         stage.addChild(sprite_help);
@@ -79,8 +103,8 @@
         sprite_start.interactive = true;
         sprite_start.on("click", start);
 
-        function start(eventData) {
-            window.location.href="www.baidu.com";
+        function start() {
+            window.location.href="start.html";
 
         }
         stage.addChild(sprite_start);
