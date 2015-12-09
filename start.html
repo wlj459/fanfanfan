@@ -37,7 +37,7 @@
 
         easy_p = new Array();
 
-        
+
         for (i=1; i<=3; i++)
         {
             easy_p[i] = new Array();
@@ -60,6 +60,24 @@
            }
         }
 
+        easy_card_list = new Array();
+        easy_card = new Array();
+        easy_card_list = ['1', '2', '3', '4', '1', '2', '3', '4', '0'];
+        chosenTiles = new Array()
+
+        for (i=1; i<=3;i++) {
+            chosenTiles[i] = new Array();
+            easy_card[i] = new Array();
+            for (j=1; j<=3;j++) {
+                var candidate=Math.floor(Math.random()*9);
+                if(chosenTiles.indexOf(candidate)==-1){
+                    chosenTiles[i][j] = chosenTiles;
+                    //easy_card[i][j] = new PIXI.Sprite.fromImage("img/xxx" + easy_card_list[candidate] + '.png')
+                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/card_back_230@2x.png");
+                }
+            }
+        }
+
         var texture_easy = PIXI.Texture.fromImage("img/card_back_230@2x.png");
 
         var easy_back = new Array();
@@ -69,9 +87,47 @@
                 easy_back[i][j] = new PIXI.Sprite(texture_easy);
                 easy_back[i][j].position.x = easy_p[i][j][1];
                 easy_back[i][j].position.y = easy_p[i][j][2];
+                easy_back[i][j].scale.x = easy_back[i][j].scale.y = game_ratio;
                 stage.addChild(easy_back[i][j]);
             }
         }
+
+        var sprite_di =  PIXI.Sprite.fromImage("img/第@2x.png");
+        sprite_di.scale.x = sprite_di.scale.y = game_ratio;
+        sprite_di.position.x = game_width * 0.3693;
+        sprite_di.position.y = game_height * 0.1154;
+        stage.addChild(sprite_di);
+
+
+        var style = {
+            font : '80px Arial',
+            fill : '#4e7e59'
+        };
+
+
+        var sprite_rank = new PIXI.Text(rank, style);
+        sprite_rank.scale.x = sprite_rank.scale.y = game_ratio/2;
+        sprite_rank.position.x = game_width * 0.48;
+        sprite_rank.position.y = game_height * 0.1054;
+        stage.addChild(sprite_rank)
+
+
+
+        var sprite_guan =  PIXI.Sprite.fromImage("img/關@2x.png");
+        sprite_guan.scale.x = sprite_guan.scale.y = game_ratio;
+        sprite_guan.position.x = game_width * 0.5547;
+        sprite_guan.position.y = game_height * 0.1154;
+        stage.addChild(sprite_guan);
+
+
+        var sprite_stop =  PIXI.Sprite.fromImage("img/button_stop@2x.png");
+        sprite_stop.scale.x = sprite_stop.scale.y = game_ratio;
+        //此处暂时没加按钮
+        sprite_stop.position.x = game_width * 0.8627;
+        sprite_stop.position.y = game_height * 0.9288;
+        stage.addChild(sprite_stop);
+
+
         animate();
 
 
