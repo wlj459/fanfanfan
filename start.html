@@ -73,24 +73,28 @@
         easy_card_list = new Array();
         easy_card = new Array();
         easy_card_list = ['1', '2', '3', '4', '1', '2', '3', '4', '0'];
-        chosenTiles = new Array()
+        easy_chosenTiles = new Array();
+        u = new Array();
+        u = [0,0,0,0,0,0,0,0,0];
 
         for (i=1; i<=3;i++) {
-            chosenTiles[i] = new Array();
+            easy_chosenTiles[i] = new Array();
             easy_card[i] = new Array();
             for (j=1; j<=3;j++) {
                 var candidate=Math.floor(Math.random()*9);
-                if(chosenTiles.indexOf(candidate)==-1){
-                    chosenTiles[i][j] = candidate;
-                    //easy_card[i][j] = new PIXI.Sprite.fromImage("img/xxx" + easy_card_list[candidate] + '.png')
-                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/第@2x.png");
+                while(u[candidate] == 1) {
+                    var candidate = Math.floor(Math.random() * 9);
+                }
+                    easy_chosenTiles[i][j] = candidate;
+                    u[candidate] = 1;
+                document.write(i, "  ", j,"   ", easy_card_list[candidate], '=====');
+                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/" + easy_card_list[candidate] + '.png')
+                    //easy_card[i][j] = new PIXI.Sprite.fromImage("img/第@2x.png");
                     easy_card[i][j].position.x = easy_p[i][j][1];
                     easy_card[i][j].position.y = easy_p[i][j][2];
-                    easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio;
-                }
+                    easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio/2;
             }
         }
-
         var texture_easy = PIXI.Texture.fromImage("img/card_back_230@2x.png");
 
         var easy_back = new Array();
@@ -169,11 +173,26 @@
         sprite_ready_num.position.x = game_width * 0.5;
         sprite_ready_num.position.y = game_height * 0.5;
 
+        //==================init================
+        back = new Array();
+        card = new Array();
+        for (i=1;i<=3;i++){
+            back[i] = new Array();
+            card[i] = new Array();
+            back[i] = easy_back[i];
+            card[i] = easy_card[i];
+        }
+        chosenTiles = new Array();
+        chosenTiles = easy_chosenTiles;
+        card_list = new Array();
+        card_list = easy_card_list;
+        //======================================
+
         for(i=1;i<=3;i++) {
             for(j=1;j<=3;j++){
-                easy_back[i][j].on('touchstart', back_click);
-                easy_back[i][j].on('mousedown', back_click);
-                stage.addChild(easy_back[i][j]);
+                back[i][j].on('touchstart', back_click);
+                back[i][j].on('mousedown', back_click);
+                stage.addChild(back[i][j]);
             }
         }
         function back_click(){
@@ -188,7 +207,7 @@
                 else{
                     next = this;
                 }
-                if (chosenTiles[this.i][this.j]==0){
+                if (card_list[chosenTiles[this.i][this.j]]==0){
                     fail = true;
                 }
             }
@@ -234,7 +253,7 @@
                     stage.removeChild(sprite_ready_num);
                     for(i=1;i<=3;i++) {
                         for(j=1;j<=3;j++){
-                            stage.addChild(easy_back[i][j]);
+                            stage.addChild(back[i][j]);
                         }
                     }
                     first = null;
@@ -255,7 +274,7 @@
                 if (first != null){
                     if (next != null){
                         stage.removeChild(next);
-                        if (chosenTiles[next.i][next.j] == chosenTiles[first.i][first.j]){
+                        if (card_list[chosenTiles[next.i][next.j]] == card_list[chosenTiles[first.i][first.j]]){
                             ans -= 2;
                             if (ans == 0){
                                 if (start_num>=0) {
