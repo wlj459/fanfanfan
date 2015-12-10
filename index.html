@@ -82,6 +82,7 @@
             var sprite_button = PIXI.Sprite.fromImage("img/button_new-拷贝@2x.png");
             sprite_button.scale.x = sprite_button.scale.y = game_ratio;
             sprite_button.interactive = true;
+            sprite_button.buttonMode = true;
             sprite_button.position.x = game_width * 0.367;
             sprite_button.position.y = game_height * 0.53;
             sprite_button.on("click", button);
@@ -96,11 +97,12 @@
         stage.addChild(sprite_help);
 
 
-        var sprite_start = PIXI.Sprite.fromImage("img/開始遊戲@2x.png");
+        var sprite_start = n=new PIXI.Sprite.fromImage("img/開始遊戲@2x.png");
         sprite_start.scale.x = sprite_start.scale.y = game_ratio;
         sprite_start.position.x = game_width * 0.3453;
         sprite_start.position.y = game_height * 0.63;
         sprite_start.interactive = true;
+        sprite_start.buttonMode = true;
         sprite_start.on("click", start);
 
         function start() {

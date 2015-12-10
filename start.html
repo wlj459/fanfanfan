@@ -11,6 +11,10 @@
         var window_width = document.documentElement.scrollWidth;
         var window_height = document.documentElement.scrollHeight;
         var game_height = window_height;
+        var fail = false;
+        var success = false;
+        var first = null;
+        var next = null;
         var game_width = Math.floor(window_height/1.778);
         if (game_width > window_width) {
             game_width = window_width;
@@ -35,10 +39,11 @@
 //=======================================================================
         var rank = 1;
         var ready = true;
-        var ready_num = 3;
+        var ready_num = 4;
         var start = false;
         var start_num = 15;//00:00
         var stop = false;
+        var ans = 8;
 
         easy_p = new Array();
 
@@ -76,7 +81,7 @@
             for (j=1; j<=3;j++) {
                 var candidate=Math.floor(Math.random()*9);
                 if(chosenTiles.indexOf(candidate)==-1){
-                    chosenTiles[i][j] = chosenTiles;
+                    chosenTiles[i][j] = candidate;
                     //easy_card[i][j] = new PIXI.Sprite.fromImage("img/xxx" + easy_card_list[candidate] + '.png')
                     easy_card[i][j] = new PIXI.Sprite.fromImage("img/第@2x.png");
                     easy_card[i][j].position.x = easy_p[i][j][1];
@@ -96,9 +101,14 @@
                 easy_back[i][j].position.x = easy_p[i][j][1];
                 easy_back[i][j].position.y = easy_p[i][j][2];
                 easy_back[i][j].scale.x = easy_back[i][j].scale.y = game_ratio;
+                easy_back[i][j].buttonMode = true;
+                easy_back[i][j].interactive = true;
+                easy_back[i][j].isSelected = false;
+                easy_back[i][j].i = i;
+                easy_back[i][j].j = j;
             }
         }
-
+//---------------------------------------------------
         var sprite_di =  PIXI.Sprite.fromImage("img/第@2x.png");
         sprite_di.scale.x = sprite_di.scale.y = game_ratio;
         sprite_di.position.x = game_width * 0.3693;
@@ -159,38 +169,122 @@
         sprite_ready_num.position.x = game_width * 0.5;
         sprite_ready_num.position.y = game_height * 0.5;
 
+        for(i=1;i<=3;i++) {
+            for(j=1;j<=3;j++){
+                easy_back[i][j].on('touchstart', back_click);
+                easy_back[i][j].on('mousedown', back_click);
+                stage.addChild(easy_back[i][j]);
+            }
+        }
+        function back_click(){
+
+            //document.write(this);
+            if (this.isSelected == false){
+                stage.removeChild(this);
+                this.isSelected = true;
+                if (first == null){
+                    first = this;
+                }
+                else{
+                    next = this;
+                }
+                if (chosenTiles[this.i][this.j]==0){
+                    fail = true;
+                }
+            }
+            //animate();
+        }
         animate();
 
 
         function animate() {
 
             requestAnimationFrame(animate);
-            if(ready){
-                if (rank<10) {
-                    for (i=1;i<=3;i++){
-                        for (j=1;j<=3;j++){
-                            stage.addChild(easy_card[i][j]);
+            if (fail){
+                window.location.href="index.html";
+            }
+            else if(success){
+                window.location.href="index.html";
+            }
+            else if(ready){
+                if (ready_num == 4) {
+                    if (rank < 10) {
+                        for (i = 1; i <= 3; i++) {
+                            for (j = 1; j <= 3; j++) {
+                                stage.addChild(easy_card[i][j]);
+                            }
                         }
+                        stage.addChild(sprite_di);
+                        stage.addChild(sprite_rank_easy);
+                        stage.addChild(sprite_guan);
+                        stage.addChild(sprite_grey);
                     }
-                    stage.addChild(sprite_di);
-                    stage.addChild(sprite_rank_easy);
-                    stage.addChild(sprite_guan);
+                    else {
 
-                }
-                else{
-
+                    }
                 }
                 sprite_ready_num.text = Math.floor(ready_num);
-                stage.addChild(sprite_grey);
                 stage.addChild(sprite_ready_num);
                 ready_num -= 0.02;
-                if (ready_num < 0){
+                if (ready_num < 1){
+                    ready_num = 4;
                     ready = false;
                     start = true;
+                    stage.removeChild(sprite_grey);
+                    stage.removeChild(sprite_ready_num);
+                    for(i=1;i<=3;i++) {
+                        for(j=1;j<=3;j++){
+                            stage.addChild(easy_back[i][j]);
+                        }
+                    }
+                    first = null;
+                    next = null;
                 }
             }
-            else{
-
+            else if(start){
+                stage.addChild(sprite_start_num);
+                var h = null;
+                if (start_num >= 10) {
+                    h = "00:" + String(Math.floor(start_num));
+                }
+                else {
+                    h = "00:0" + String(Math.floor(start_num));
+                }
+                sprite_start_num.text = h;
+                start_num -= 0.02;
+                if (first != null){
+                    if (next != null){
+                        stage.removeChild(next);
+                        if (chosenTiles[next.i][next.j] == chosenTiles[first.i][first.j]){
+                            ans -= 2;
+                            if (ans == 0){
+                                if (start_num>=0) {
+                                    success = true;
+                                }
+                            }
+                        }
+                        else {
+                            stage.addChild(first);
+                            stage.addChild(next);
+                            first.isSelected = false;
+                            next.isSelected = false;
+                        }
+                        first = null;
+                        next = null;
+                    }
+                    else {
+                        stage.removeChild(first);
+                    }
+                }
+                //===============
+                if (start_num <0){
+                    if(ans == 0){
+                        success = true;
+                    }
+                    else {
+                        fail = true;
+                    }
+                }
             }
             renderer.render(stage);
         }
