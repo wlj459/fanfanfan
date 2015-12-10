@@ -88,8 +88,7 @@
                     easy_chosenTiles[i][j] = candidate;
                     u[candidate] = 1;
                 document.write(i, "  ", j,"   ", easy_card_list[candidate], '=====');
-                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/" + easy_card_list[candidate] + '.png')
-                    //easy_card[i][j] = new PIXI.Sprite.fromImage("img/第@2x.png");
+                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/1-" + easy_card_list[candidate] + '.png')
                     easy_card[i][j].position.x = easy_p[i][j][1];
                     easy_card[i][j].position.y = easy_p[i][j][2];
                     easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio/2;
@@ -188,13 +187,6 @@
         card_list = easy_card_list;
         //======================================
 
-        for(i=1;i<=3;i++) {
-            for(j=1;j<=3;j++){
-                back[i][j].on('touchstart', back_click);
-                back[i][j].on('mousedown', back_click);
-                stage.addChild(back[i][j]);
-            }
-        }
         function back_click(){
 
             //document.write(this);
@@ -223,10 +215,29 @@
                 window.location.href="index.html";
             }
             else if(success){
-                window.location.href="index.html";
+                if(rank > 5) {
+                    window.location.href = "index.html";
+                }else{
+                    success = false;
+                    first = null;
+                    next = null;
+                    ans = 8;
+                    rank += 1;
+                    sprite_rank_easy.text = rank;
+                    ready = true;
+                    start_num = 15;
+                }
             }
             else if(ready){
                 if (ready_num == 4) {
+                    for(i=1;i<=3;i++) {
+                        for(j=1;j<=3;j++){
+                            back[i][j].on('touchstart', back_click);
+                            back[i][j].on('mousedown', back_click);
+                            back[i][j].isSelected = false;
+                            stage.addChild(back[i][j]);
+                        }
+                    }
                     if (rank < 10) {
                         for (i = 1; i <= 3; i++) {
                             for (j = 1; j <= 3; j++) {
