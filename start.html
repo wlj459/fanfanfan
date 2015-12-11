@@ -218,20 +218,27 @@
                 window.location.href="index.html";
             }
             else if(success){
-                alert(rank);
-                if(rank == 5) {
-                    window.location.href = "index.html";
-                }else{
-                    success = false;
-                    first = null;
-                    next = null;
-                    ans = 8;
-                    rank += 1;
-                    sprite_rank_easy.text = rank;
-                    ready = true;
-                    start_num = 15;
-                    easy_random();
+                if(rank == 1) {
+                    alert(rank);
+                    for(i=1;i<=3;i++){
+                        for (j=1;j<=3;j++){
+                            easy_card[i][j]  = PIXI.Sprite.fromImage("img/2-" + easy_card_list[chosenTiles[i][j]] + ".png");
+                            easy_card[i][j].position.x = easy_p[i][j][1];
+                            easy_card[i][j].position.y = easy_p[i][j][2];
+                            easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio/2;
+                            card[i][j] = easy_card[i][j];
+                        }
+                    }
                 }
+                success = false;
+                first = null;
+                next = null;
+                ans = 8;
+                rank += 1;
+                sprite_rank_easy.text = rank;
+                ready = true;
+                start_num = 15;
+                easy_random();
             }
             else if(ready){
                 var h = null;
@@ -254,7 +261,7 @@
                     if (rank < 10) {
                         for (i = 1; i <= 3; i++) {
                             for (j = 1; j <= 3; j++) {
-                                stage.addChild(easy_card[i][j]);
+                                stage.addChild(card[i][j]);
                             }
                         }
                         stage.addChild(sprite_di);
