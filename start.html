@@ -186,12 +186,12 @@
 
 
 
-        var sprite_stop =  PIXI.Sprite.fromImage("img/button_stop@2x.png");
-        sprite_stop.scale.x = sprite_stop.scale.y = game_ratio;
-        //此处暂时没加按钮
-        sprite_stop.position.x = game_width * 0.8627;
-        sprite_stop.position.y = game_height * 0.9288;
-        stage.addChild(sprite_stop);
+//        var sprite_stop =  PIXI.Sprite.fromImage("img/button_stop@2x.png");
+//        sprite_stop.scale.x = sprite_stop.scale.y = game_ratio;
+//        //此处暂时没加按钮
+//        sprite_stop.position.x = game_width * 0.8627;
+//        sprite_stop.position.y = game_height * 0.9288;
+//        stage.addChild(sprite_stop);
 
         var h = null;
         if (start_num > 9) {
@@ -236,7 +236,7 @@
         card_list = easy_card_list;
         sprite_di = sprite_di_easy;
         sprite_guan = sprite_guan_easy;
-        sprite_ran = sprite_rank_easy;
+        sprite_rank = sprite_rank_easy;
         //======================================
 
         function back_click(){
@@ -308,7 +308,7 @@
                 window.location.href="index.html";
             }
             else if(success){
-                if (rank ==2){
+                if (rank ==10){
                     for(i=1;i<=range;i++){
                         for (j=1;j<=range;j++){
                             stage.removeChild(card[i][j]);
@@ -323,12 +323,12 @@
                     card_list = hard_card_list;
                     sprite_di = sprite_di_hard;
                     sprite_guan = sprite_guan_hard;
-                    sprite_ran = sprite_rank_hard;
+                    sprite_rank = sprite_rank_hard;
                 }
                 success = false;
                 first = null;
                 next = null;
-                if (rank<2){
+                if (rank<10){
                     ans = 8;
                     easy_random(Math.floor(rank/5 + 1));
                     for (i=1;i<=range;i++)
@@ -345,7 +345,7 @@
                     }
                 }
                 rank += 1;
-                sprite_rank_easy.text = rank;
+                sprite_rank.text = rank;
                 ready = true;
                 start_num = 15;
             }
@@ -373,7 +373,7 @@
                         }
                     }
                     stage.addChild(sprite_di);
-                    stage.addChild(sprite_rank_easy);
+                    stage.addChild(sprite_rank);
                     stage.addChild(sprite_guan);
                     stage.addChild(sprite_grey);
             }
@@ -386,8 +386,8 @@
                     start = true;
                     stage.removeChild(sprite_grey);
                     stage.removeChild(sprite_ready_num);
-                    for(i=1;i<=3;i++) {
-                        for(j=1;j<=3;j++){
+                    for(i=1;i<=range;i++) {
+                        for(j=1;j<=range;j++){
                             stage.addChild(back[i][j]);
                         }
                     }
