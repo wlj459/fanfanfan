@@ -136,13 +136,14 @@
                     }
                     else {
                         hard_p[i][j][1] = hard_p[i-1][j][1];
-                        hard_p[i][j][2] = hard_p[i-1][j][2] + game_height * 0.10495;
+                        hard_p[i][j][2] = hard_p[i-1][j][2] + game_height * 0.1379;
                     }
                 }
                 else{
-                    hard_p[i][j][1] = hard_p[i][j-1][1] + game_width * 0.0187;
+                    hard_p[i][j][1] = hard_p[i][j-1][1] + game_width * 0.2453;
                     hard_p[i][j][2] = hard_p[i][j-1][2];
                 }
+
             }
         }
 
@@ -155,9 +156,9 @@
         var texture_hard = PIXI.Texture.fromImage("img/card_back_170@2x.png");
 
         var hard_back = new Array();
-        for (i=1; i<=3; i++){
+        for (i=1; i<=4; i++){
             hard_back[i] = new Array;
-            for (j=1; j<=3; j++){
+            for (j=1; j<=4; j++){
                 hard_back[i][j] = new PIXI.Sprite(texture_hard);
                 hard_back[i][j].position.x = hard_p[i][j][1];
                 hard_back[i][j].position.y = hard_p[i][j][2];
@@ -294,7 +295,7 @@
                     hard_card[i][j] = new PIXI.Sprite.fromImage("img/" + level + "-" + hard_card_list[candidate] + '.png')
                     hard_card[i][j].position.x = hard_p[i][j][1];
                     hard_card[i][j].position.y = hard_p[i][j][2];
-                    hard_card[i][j].scale.x = hard_card[i][j].scale.y = game_ratio/2;
+                    hard_card[i][j].scale.x = hard_card[i][j].scale.y = game_ratio/2 * 0.71;
                 }
             }
         }
@@ -307,7 +308,12 @@
                 window.location.href="index.html";
             }
             else if(success){
-                if (rank ==10){
+                if (rank ==2){
+                    for(i=1;i<=range;i++){
+                        for (j=1;j<=range;j++){
+                            stage.removeChild(card[i][j]);
+                        }
+                    }
                     range = 4;
                     for (i=1;i<=range;i++){
                         back[i] = hard_back[i];
@@ -322,7 +328,7 @@
                 success = false;
                 first = null;
                 next = null;
-                if (rank<10){
+                if (rank<2){
                     ans = 8;
                     easy_random(Math.floor(rank/5 + 1));
                     for (i=1;i<=range;i++)
@@ -335,7 +341,7 @@
                     hard_random(Math.floor(rank/5 + 1));
                     for (i=1;i<=range;i++)
                     {
-                        card[i] = easy_card[i];
+                        card[i] = hard_card[i];
                     }
                 }
                 rank += 1;
