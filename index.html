@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,13 +8,13 @@
 
 <body>
     <script>
-        var window_width = document.documentElement.scrollWidth;
-        var window_height = document.documentElement.scrollHeight;
+        var window_width = document.documentElement.offsetWidth;
+        var window_height = document.documentElement.offsetHeight;
         var game_height = window_height;
         var game_width = Math.floor(window_height/1.778);
         if (game_width > window_width) {
             game_width = window_width;
-            ganke_height = game_width * 1.778;
+            game_height = game_width * 1.778;
         }
         var stage = new PIXI.Container();
 
