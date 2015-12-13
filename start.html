@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>番番番</title>
     <script src="pixi.js"></script>
+    <script src= "http://static.api.5miao.com/js/api.js" ></script>
 </head>
 
 <body>
@@ -39,7 +40,7 @@
 
         var rank = 1;
         var ready = true;
-        var ready_num = 4;
+        var ready_num = 3;
         var start = false;
         var start_num = 15;//00:00
         var stop = false;
@@ -170,33 +171,38 @@
             }
         }
         var sprite_di_hard =  PIXI.Sprite.fromImage("img/第@2x.png");
-        sprite_di_hard.scale.x = sprite_di_easy.scale.y = game_ratio;
-        sprite_di_hard.position.x = game_width * 0.4413;
+        sprite_di_hard.scale.x = sprite_di_hard.scale.y = game_ratio;
+        sprite_di_hard.position.x = game_width * 0.3173;
         sprite_di_hard.position.y = game_height * 0.1154;
 
         var sprite_rank_hard = new PIXI.Text(rank, style);
-        sprite_rank_hard.scale.x = sprite_rank_easy.scale.y = game_ratio/2;
+        sprite_rank_hard.scale.x = sprite_rank_hard.scale.y = game_ratio/2;
         sprite_rank_hard.position.x = game_width * 0.4413;
         sprite_rank_hard.position.y = game_height * 0.1054;
 
 
 
         var sprite_guan_hard =  PIXI.Sprite.fromImage("img/關@2x.png");
-        sprite_guan_hard.scale.x = sprite_guan_easy.scale.y = game_ratio;
+        sprite_guan_hard.scale.x = sprite_guan_hard.scale.y = game_ratio;
         sprite_guan_hard.position.x = game_width * 0.58267;
         sprite_guan_hard.position.y = game_height * 0.1154;
+
+        var end_style = {
+            font : '20px Arial',
+            fill : '#ffffff'
+        };
+
+
+
+        var sprite_text = new PIXI.Text("你坚持到了第", end_style);
+        sprite_text.scale.x = sprite_text.scale.y = game_ratio;
+        sprite_text.position.x = game_width * 0.3027;
+        sprite_text.position.y = game_height * 0.3366;
 
 
 //---------------------------------------------------
 
 
-
-//        var sprite_stop =  PIXI.Sprite.fromImage("img/button_stop@2x.png");
-//        sprite_stop.scale.x = sprite_stop.scale.y = game_ratio;
-//        //此处暂时没加按钮
-//        sprite_stop.position.x = game_width * 0.8627;
-//        sprite_stop.position.y = game_height * 0.9288;
-//        stage.addChild(sprite_stop);
 
         var h = null;
         if (start_num > 9) {
@@ -248,6 +254,29 @@
         stage.addChild(sprite_guan);
         //======================================
 
+        var sprite_share = PIXI.Sprite.fromImage("img/button_new@2x.png");
+        sprite_share.scale.x = sprite_share.scale.y = game_ratio;
+        sprite_share.position.x = game_width * 0.3653;
+        sprite_share.position.y = game_height * 0.521;
+        sprite_share.buttonMode = true;
+        sprite_share.interactive = true;
+        sprite_share.on('touchstart',share);
+        sprite_share.on('mousedown',share);
+
+        var sprite_end = PIXI.Sprite.fromImage("img/遊戲結束@2x.png");
+        sprite_end.scale.x = sprite_end.scale.y = game_ratio;
+        sprite_end.position.x = game_width * 0.1907;
+        sprite_end.position.y = game_height * 0.2076;
+
+        var sprite_restart = PIXI.Sprite.fromImage("img/button_new-拷贝@2x副本.png");
+        sprite_restart.scale.x = sprite_restart.scale.y = game_ratio;
+        sprite_restart.position.x = game_width * 0.3653;
+        sprite_restart.position.y = game_height * 0.4333;
+        sprite_restart.buttonMode = true;
+        sprite_restart.interactive = true;
+        sprite_restart.on("touchstart",restart);
+        sprite_restart.on("mousedown",restart);
+        //=========================
         function back_click(){
 
             //document.write(this);
@@ -310,12 +339,33 @@
         }
 
         function  restart(){
-
+            window.location.href="start.html";
         }
 
 
         function  share(){
+            yw.init({
+                gameId: '10000237',
+                width: game_width,
+                height: game_height,
+                barrageEnabled: false,
+                rankEnabled: false
+            });
+            yw.openSocialShareMenu({"title":"番番番","imageUrl":"http://7fvhqc.com1.z0.glb.clouddn.com/3-3.png","text":"番番番，快来玩吧！"},
+                    function(){window.location.href="index.html";
+            });
+        }
 
+        function end(){
+            stage.addChild(sprite_back);
+            stage.addChild(sprite_di);
+            stage.addChild(sprite_rank);
+            stage.addChild(sprite_guan);
+            stage.addChild(sprite_grey);
+            stage.addChild(sprite_text);
+            stage.addChild(sprite_end);
+            stage.addChild(sprite_restart);
+            stage.addChild(sprite_share);
         }
         animate();
 
@@ -323,45 +373,29 @@
 
             requestAnimationFrame(animate);
             if (fail){
-                stage.addChild(sprite_back);
-                stage.addChild(sprite_di);
-                stage.addChild(sprite_rank);
-                stage.addChild(sprite_guan);
-                stage.addChild(sprite_grey);
-                var sprite_end = PIXI.Sprite.fromImage("img/遊戲結束@2x.png");
-                sprite_end.scale.x = sprite_end.scale.y = game_ratio;
-                sprite_end.position.x = game_width * 0.1907;
-                sprite_end.position.y = game_height * 0.305;
-                stage.addChild(sprite_end);
+                sprite_text.text = "你坚持到了第" + rank + '关!';
+                end();
 
-                var sprite_share = PIXI.Sprite.fromImage("img/button_new@2x.png");
-                sprite_share.scale.x = sprite_share.scale.y = game_ratio;
-                sprite_share.position.x = game_width * 0.3653;
-                sprite_share.position.y = game_height * 0.521;
-                sprite_share.buttonMode = true;
-                sprite_share.interactive = true;
-                sprite_share.on("click", share);
-                stage.addChild(sprite_share);
-
-                var sprite_restart = PIXI.Sprite.fromImage("img/button_new-拷贝@2x副本.png");
-                sprite_restart.scale.x = sprite_restart.scale.y = game_ratio;
-                sprite_restart.position.x = game_width * 0.3653;
-                sprite_restart.position.y = game_height * 0.4333;
-                sprite_restart.buttonMode = true;
-                sprite_restart.interactive = true;
-                sprite_share.on("click", restart);
-                stage.addChild(sprite_restart);
             }
             else if(success){
                 if (rank == 20){
-                    stage.addChild(sprite_back);
-                    stage.addChild(sprite_di);
-                    stage.addChild(sprite_rank);
-                    stage.addChild(sprite_guan);
-                    stage.addChild(sprite_grey);
+                    sprite_text.text = "你坚持到了最后!";
+                    end();
                 }
                 else{
-                    if (rank ==10){
+                    if (rank >9){
+                        stage.removeChild(sprite_di);
+                        stage.removeChild(sprite_guan);
+                        stage.removeChild(sprite_rank);
+                        sprite_di = sprite_di_hard;
+                        sprite_guan = sprite_guan_hard;
+                        sprite_rank = sprite_rank_hard;
+
+                        stage.addChild(sprite_di);
+                        stage.addChild(sprite_guan);
+                        stage.addChild(sprite_rank);
+                    }
+                    if (rank == 10){
                         for(i=1;i<=range;i++){
                             for (j=1;j<=range;j++){
                                 stage.removeChild(card[i][j]);
@@ -374,18 +408,11 @@
                         }
                         chosenTiles = hard_chosenTiles;
                         card_list = hard_card_list;
-                        sprite_di = sprite_di_hard;
-                        sprite_guan = sprite_guan_hard;
-                        sprite_rank = sprite_rank_hard;
-
-                        stage.addChild(sprite_di);
-                        stage.addChild(sprite_rank);
-                        stage.addChild(sprite_guan);
                     }
                     success = false;
                     first = null;
                     next = null;
-                    if (rank<10){
+                    if (rank== 10){
                         ans = 8;
                         easy_random(Math.floor(rank/5 + 1));
                         for (i=1;i<=range;i++)
@@ -416,7 +443,7 @@
                     h = "00:0" + String(Math.floor(start_num));
                 }
                 sprite_start_num.text = h;
-                if (ready_num == 4) {
+                if (ready_num == 3) {
                     for(i=1;i<=range;i++) {
                         for(j=1;j<=range;j++){
                             back[i][j].on('touchstart', back_click);
@@ -435,7 +462,7 @@
                 sprite_ready_num.text = Math.floor(ready_num);
                 stage.addChild(sprite_ready_num);
                 ready_num -= 0.02;
-                if (ready_num < 1){
+                if (ready_num < 0){
                     ready_num = 4;
                     ready = false;
                     start = true;
