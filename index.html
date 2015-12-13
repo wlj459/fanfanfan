@@ -1,26 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>番番番</title>
     <script src="pixi.js"></script>
+    <script src= "http://static.api.5miao.com/js/api.js" ></script>
 </head>
 
 <body>
-    <script>
-        var window_width = document.documentElement.offsetWidth;
-        var window_height = document.documentElement.offsetHeight;
-        var game_height = window_height;
-        var game_width = Math.floor(window_height/1.778);
-        if (game_width > window_width) {
-            game_width = window_width;
-            game_height = game_width * 1.778;
-        }
-        var stage = new PIXI.Container();
+<script>
+    var window_width = document.documentElement.offsetWidth;
+    var window_height = document.documentElement.offsetHeight;
+    var game_height = window_height;
+    var game_width = Math.floor(window_height/1.778);
+    if (game_width > window_width) {
+        game_width = window_width;
+        game_height = game_width * 1.778;
+    }
+
+    var stage = new PIXI.Container();
 
 
-        var renderer = PIXI.autoDetectRenderer(game_width, game_height);
-        document.body.appendChild(renderer.view);
+    var renderer = PIXI.autoDetectRenderer(game_width, game_height);
+    document.body.appendChild(renderer.view);
 
 
 
