@@ -383,7 +383,7 @@
                     end();
                 }
                 else{
-                    if (rank >9){
+                    if (rank == 9){
                         stage.removeChild(sprite_di);
                         stage.removeChild(sprite_guan);
                         stage.removeChild(sprite_rank);
@@ -412,7 +412,7 @@
                     success = false;
                     first = null;
                     next = null;
-                    if (rank== 10){
+                    if (rank < 10){
                         ans = 8;
                         easy_random(Math.floor(rank/5 + 1));
                         for (i=1;i<=range;i++)
@@ -463,7 +463,7 @@
                 stage.addChild(sprite_ready_num);
                 ready_num -= 0.02;
                 if (ready_num < 0){
-                    ready_num = 4;
+                    ready_num = 3;
                     ready = false;
                     start = true;
                     stage.removeChild(sprite_grey);
