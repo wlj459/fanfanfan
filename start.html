@@ -108,7 +108,6 @@
             fill : '#4e7e59'
         };
 
-        // 10开始的适配还没做
         var sprite_rank_easy = new PIXI.Text(rank, style);
         sprite_rank_easy.scale.x = sprite_rank_easy.scale.y = game_ratio/2;
         sprite_rank_easy.position.x = game_width * 0.48;
@@ -170,18 +169,24 @@
                 hard_back[i][j].j = j;
             }
         }
+        var sprite_di_hard =  PIXI.Sprite.fromImage("img/第@2x.png");
+        sprite_di_hard.scale.x = sprite_di_easy.scale.y = game_ratio;
+        sprite_di_hard.position.x = game_width * 0.4413;
+        sprite_di_hard.position.y = game_height * 0.1154;
 
-        var sprite_di_hard =  sprite_di_easy;
-        sprite_di_hard.position.x = game_width * 0.324;
-
-
-        var sprite_rank_hard = sprite_rank_easy;
+        var sprite_rank_hard = new PIXI.Text(rank, style);
+        sprite_rank_hard.scale.x = sprite_rank_easy.scale.y = game_ratio/2;
         sprite_rank_hard.position.x = game_width * 0.4413;
+        sprite_rank_hard.position.y = game_height * 0.1054;
 
 
 
-        var sprite_guan_hard = sprite_guan_easy;
+        var sprite_guan_hard =  PIXI.Sprite.fromImage("img/關@2x.png");
+        sprite_guan_hard.scale.x = sprite_guan_easy.scale.y = game_ratio;
         sprite_guan_hard.position.x = game_width * 0.58267;
+        sprite_guan_hard.position.y = game_height * 0.1154;
+
+
 //---------------------------------------------------
 
 
@@ -237,6 +242,10 @@
         sprite_di = sprite_di_easy;
         sprite_guan = sprite_guan_easy;
         sprite_rank = sprite_rank_easy;
+
+        stage.addChild(sprite_di);
+        stage.addChild(sprite_rank);
+        stage.addChild(sprite_guan);
         //======================================
 
         function back_click(){
@@ -299,55 +308,104 @@
                 }
             }
         }
+
+        function  restart(){
+
+        }
+
+
+        function  share(){
+
+        }
         animate();
 
         function animate() {
 
             requestAnimationFrame(animate);
             if (fail){
-                window.location.href="index.html";
+                stage.addChild(sprite_back);
+                stage.addChild(sprite_di);
+                stage.addChild(sprite_rank);
+                stage.addChild(sprite_guan);
+                stage.addChild(sprite_grey);
+                var sprite_end = PIXI.Sprite.fromImage("img/遊戲結束@2x.png");
+                sprite_end.scale.x = sprite_end.scale.y = game_ratio;
+                sprite_end.position.x = game_width * 0.1907;
+                sprite_end.position.y = game_height * 0.305;
+                stage.addChild(sprite_end);
+
+                var sprite_share = PIXI.Sprite.fromImage("img/button_new@2x.png");
+                sprite_share.scale.x = sprite_share.scale.y = game_ratio;
+                sprite_share.position.x = game_width * 0.3653;
+                sprite_share.position.y = game_height * 0.521;
+                sprite_share.buttonMode = true;
+                sprite_share.interactive = true;
+                sprite_share.on("click", share);
+                stage.addChild(sprite_share);
+
+                var sprite_restart = PIXI.Sprite.fromImage("img/button_new-拷贝@2x副本.png");
+                sprite_restart.scale.x = sprite_restart.scale.y = game_ratio;
+                sprite_restart.position.x = game_width * 0.3653;
+                sprite_restart.position.y = game_height * 0.4333;
+                sprite_restart.buttonMode = true;
+                sprite_restart.interactive = true;
+                sprite_share.on("click", restart);
+                stage.addChild(sprite_restart);
             }
             else if(success){
-                if (rank ==10){
-                    for(i=1;i<=range;i++){
-                        for (j=1;j<=range;j++){
-                            stage.removeChild(card[i][j]);
+                if (rank == 20){
+                    stage.addChild(sprite_back);
+                    stage.addChild(sprite_di);
+                    stage.addChild(sprite_rank);
+                    stage.addChild(sprite_guan);
+                    stage.addChild(sprite_grey);
+                }
+                else{
+                    if (rank ==10){
+                        for(i=1;i<=range;i++){
+                            for (j=1;j<=range;j++){
+                                stage.removeChild(card[i][j]);
+                            }
+                        }
+                        range = 4;
+                        for (i=1;i<=range;i++){
+                            back[i] = hard_back[i];
+                            card[i] = hard_card[i];
+                        }
+                        chosenTiles = hard_chosenTiles;
+                        card_list = hard_card_list;
+                        sprite_di = sprite_di_hard;
+                        sprite_guan = sprite_guan_hard;
+                        sprite_rank = sprite_rank_hard;
+
+                        stage.addChild(sprite_di);
+                        stage.addChild(sprite_rank);
+                        stage.addChild(sprite_guan);
+                    }
+                    success = false;
+                    first = null;
+                    next = null;
+                    if (rank<10){
+                        ans = 8;
+                        easy_random(Math.floor(rank/5 + 1));
+                        for (i=1;i<=range;i++)
+                        {
+                            card[i] = easy_card[i];
                         }
                     }
-                    range = 4;
-                    for (i=1;i<=range;i++){
-                        back[i] = hard_back[i];
-                        card[i] = hard_card[i];
+                    else {
+                        ans = 12;
+                        hard_random(Math.floor(rank/5 + 1));
+                        for (i=1;i<=range;i++)
+                        {
+                            card[i] = hard_card[i];
+                        }
                     }
-                    chosenTiles = hard_chosenTiles;
-                    card_list = hard_card_list;
-                    sprite_di = sprite_di_hard;
-                    sprite_guan = sprite_guan_hard;
-                    sprite_rank = sprite_rank_hard;
+                    rank += 1;
+                    sprite_rank.text = rank;
+                    ready = true;
+                    start_num = 15;
                 }
-                success = false;
-                first = null;
-                next = null;
-                if (rank<10){
-                    ans = 8;
-                    easy_random(Math.floor(rank/5 + 1));
-                    for (i=1;i<=range;i++)
-                    {
-                        card[i] = easy_card[i];
-                    }
-                }
-                else {
-                    ans = 12;
-                    hard_random(Math.floor(rank/5 + 1));
-                    for (i=1;i<=range;i++)
-                    {
-                        card[i] = hard_card[i];
-                    }
-                }
-                rank += 1;
-                sprite_rank.text = rank;
-                ready = true;
-                start_num = 15;
             }
             else if(ready){
                 var h = null;
@@ -372,9 +430,6 @@
                             stage.addChild(card[i][j]);
                         }
                     }
-                    stage.addChild(sprite_di);
-                    stage.addChild(sprite_rank);
-                    stage.addChild(sprite_guan);
                     stage.addChild(sprite_grey);
             }
                 sprite_ready_num.text = Math.floor(ready_num);
