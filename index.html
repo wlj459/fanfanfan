@@ -72,7 +72,8 @@
         sprite_help.position.x = game_width * 0.3467;
         sprite_help.position.y = game_height * 0.698;
 
-        sprite_help.on('click', click);
+        sprite_help.on('touchstart', click);
+        sprite_help.on('mousedown', click);
 
         function click() {
             stage.addChild(sprite_back);
@@ -87,7 +88,8 @@
             sprite_button.buttonMode = true;
             sprite_button.position.x = game_width * 0.367;
             sprite_button.position.y = game_height * 0.53;
-            sprite_button.on("click", button);
+            sprite_button.on("mousedown", button);
+            sprite_button.on("touchstart", button);
             stage.addChild(sprite_button);
 
             function button() {
@@ -105,7 +107,8 @@
         sprite_start.position.y = game_height * 0.63;
         sprite_start.interactive = true;
         sprite_start.buttonMode = true;
-        sprite_start.on("click", start);
+        sprite_start.on("touchstart", start);
+        sprite_start.on("mousedown", start);
 
         function start() {
             window.location.href="start.html";
