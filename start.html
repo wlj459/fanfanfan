@@ -12,6 +12,13 @@
 
 <body>
     <script>
+        yw.init({
+            gameId: '10002663',
+            width: game_width,
+            height: game_height,
+            barrageEnabled: false,
+            rankEnabled: false
+        });
         var window_width = document.documentElement.clientWidth;
         var window_height = document.documentElement.clientHeight;
         var game_height = window_height;
@@ -347,13 +354,7 @@
 
 
         function  share(){
-            yw.init({
-                gameId: '10002663',
-                width: game_width,
-                height: game_height,
-                barrageEnabled: false,
-                rankEnabled: false
-            });
+
             yw.openSocialShareMenu({"title":"番番番","imageUrl":"http://7fvhqc.com1.z0.glb.clouddn.com/3-3.png","text":"番番番，快来玩吧！"},
                     function(){window.location.href="index.html";
             });
