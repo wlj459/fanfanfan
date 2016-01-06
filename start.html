@@ -31,14 +31,14 @@
         var renderer = PIXI.autoDetectRenderer(game_width, game_height);
         document.body.appendChild(renderer.view);
 
-        var sprite_back = PIXI.Sprite.fromImage("img/background@2x.png")
-        game_ratio = game_width/375;
+        var sprite_back = PIXI.Sprite.fromImage("img/background_2x.png")
+        game_ratio = game_width/750;
 
         sprite_back.scale.x = sprite_back.scale.y = game_ratio;
         stage.addChild(sprite_back);
 
 
-        var sprite_grey = PIXI.Sprite.fromImage("img/background-拷贝-2@2x.png");
+        var sprite_grey = PIXI.Sprite.fromImage("img/background_2_2x.png");
         sprite_grey.scale.x = sprite_grey.scale.y = game_ratio;
 
         var rank = 1;
@@ -83,7 +83,7 @@
         easy_chosenTiles = new Array();
 
         easy_random(1);
-        var texture_easy = PIXI.Texture.fromImage("img/card_back_230@2x.png");
+        var texture_easy = PIXI.Texture.fromImage("img/card_back_230_2x.png");
 
         var easy_back = new Array();
         for (i=1; i<=3; i++){
@@ -101,7 +101,7 @@
             }
         }
 
-        var sprite_di_easy =  PIXI.Sprite.fromImage("img/第@2x.png");
+        var sprite_di_easy =  PIXI.Sprite.fromImage("img/di_2x.png");
         sprite_di_easy.scale.x = sprite_di_easy.scale.y = game_ratio;
         sprite_di_easy.position.x = game_width * 0.3693;
         sprite_di_easy.position.y = game_height * 0.1154;
@@ -113,13 +113,13 @@
         };
 
         var sprite_rank_easy = new PIXI.Text(rank, style);
-        sprite_rank_easy.scale.x = sprite_rank_easy.scale.y = game_ratio/2;
+        sprite_rank_easy.scale.x = sprite_rank_easy.scale.y = game_ratio;
         sprite_rank_easy.position.x = game_width * 0.48;
         sprite_rank_easy.position.y = game_height * 0.1054;
 
 
 
-        var sprite_guan_easy =  PIXI.Sprite.fromImage("img/關@2x.png");
+        var sprite_guan_easy =  PIXI.Sprite.fromImage("img/guan_2x.png");
         sprite_guan_easy.scale.x = sprite_guan_easy.scale.y = game_ratio;
         sprite_guan_easy.position.x = game_width * 0.5547;
         sprite_guan_easy.position.y = game_height * 0.1154;
@@ -156,7 +156,7 @@
         hard_chosenTiles = new Array();
 
         hard_random(3);
-        var texture_hard = PIXI.Texture.fromImage("img/card_back_170@2x.png");
+        var texture_hard = PIXI.Texture.fromImage("img/card_back_170_2x.png");
 
         var hard_back = new Array();
         for (i=1; i<=4; i++){
@@ -173,25 +173,25 @@
                 hard_back[i][j].j = j;
             }
         }
-        var sprite_di_hard =  PIXI.Sprite.fromImage("img/第@2x.png");
+        var sprite_di_hard =  PIXI.Sprite.fromImage("img/di_2x.png");
         sprite_di_hard.scale.x = sprite_di_hard.scale.y = game_ratio;
         sprite_di_hard.position.x = game_width * 0.3173;
         sprite_di_hard.position.y = game_height * 0.1154;
 
         var sprite_rank_hard = new PIXI.Text(rank, style);
-        sprite_rank_hard.scale.x = sprite_rank_hard.scale.y = game_ratio/2;
+        sprite_rank_hard.scale.x = sprite_rank_hard.scale.y = game_ratio;
         sprite_rank_hard.position.x = game_width * 0.4413;
         sprite_rank_hard.position.y = game_height * 0.1054;
 
 
 
-        var sprite_guan_hard =  PIXI.Sprite.fromImage("img/關@2x.png");
+        var sprite_guan_hard =  PIXI.Sprite.fromImage("img/guan_2x.png");
         sprite_guan_hard.scale.x = sprite_guan_hard.scale.y = game_ratio;
         sprite_guan_hard.position.x = game_width * 0.58267;
         sprite_guan_hard.position.y = game_height * 0.1154;
 
         var end_style = {
-            font : '20px Arial',
+            font : '40px Arial',
             fill : '#ffffff'
         };
 
@@ -225,13 +225,13 @@
             fill : '#ffffff'
         };
         var sprite_start_num = new PIXI.Text(h, time_style);
-        sprite_start_num.scale.x = sprite_start_num.scale.y = game_ratio/2;
+        sprite_start_num.scale.x = sprite_start_num.scale.y = game_ratio;
         sprite_start_num.position.x = game_width * 0.848;
         sprite_start_num.position.y = game_height * 0.1874;
         stage.addChild(sprite_start_num);
 
         var sprite_ready_num = new PIXI.Text(ready_num, ready_style);
-        sprite_ready_num.scale.x = sprite_ready_num.scale.y = game_ratio/2;
+        sprite_ready_num.scale.x = sprite_ready_num.scale.y = game_ratio;
         sprite_ready_num.position.x = game_width * 0.5;
         sprite_ready_num.position.y = game_height * 0.5;
 
@@ -257,7 +257,7 @@
         stage.addChild(sprite_guan);
         //======================================
 
-        var sprite_share = PIXI.Sprite.fromImage("img/button_new@2x.png");
+        var sprite_share = PIXI.Sprite.fromImage("img/button_new_2x.png");
         sprite_share.scale.x = sprite_share.scale.y = game_ratio;
         sprite_share.position.x = game_width * 0.3653;
         sprite_share.position.y = game_height * 0.521;
@@ -266,12 +266,12 @@
         sprite_share.on('touchstart',share);
         sprite_share.on('mousedown',share);
 
-        var sprite_end = PIXI.Sprite.fromImage("img/遊戲結束@2x.png");
+        var sprite_end = PIXI.Sprite.fromImage("img/youxijieshu.png");
         sprite_end.scale.x = sprite_end.scale.y = game_ratio;
         sprite_end.position.x = game_width * 0.1907;
         sprite_end.position.y = game_height * 0.2076;
 
-        var sprite_restart = PIXI.Sprite.fromImage("img/button_new-拷贝@2x副本.png");
+        var sprite_restart = PIXI.Sprite.fromImage("img/button_new__2x_.png");
         sprite_restart.scale.x = sprite_restart.scale.y = game_ratio;
         sprite_restart.position.x = game_width * 0.3653;
         sprite_restart.position.y = game_height * 0.4333;
@@ -312,10 +312,10 @@
                     }
                     easy_chosenTiles[i][j] = candidate;
                     u[candidate] = 1;
-                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/" + level + "-" + easy_card_list[candidate] + '.png')
+                    easy_card[i][j] = new PIXI.Sprite.fromImage("img/" + level + easy_card_list[candidate] + '.png')
                     easy_card[i][j].position.x = easy_p[i][j][1];
                     easy_card[i][j].position.y = easy_p[i][j][2];
-                    easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio/2;
+                    easy_card[i][j].scale.x = easy_card[i][j].scale.y = game_ratio;
                 }
             }
         }
@@ -333,10 +333,10 @@
                     }
                     hard_chosenTiles[i][j] = candidate;
                     u[candidate] = 1;
-                    hard_card[i][j] = new PIXI.Sprite.fromImage("img/" + level + "-" + hard_card_list[candidate] + '.png')
+                    hard_card[i][j] = new PIXI.Sprite.fromImage("img/" + level  + hard_card_list[candidate] + '.png')
                     hard_card[i][j].position.x = hard_p[i][j][1];
                     hard_card[i][j].position.y = hard_p[i][j][2];
-                    hard_card[i][j].scale.x = hard_card[i][j].scale.y = game_ratio/2 * 0.71;
+                    hard_card[i][j].scale.x = hard_card[i][j].scale.y = game_ratio * 0.71;
                 }
             }
         }

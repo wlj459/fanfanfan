@@ -30,14 +30,14 @@
 
 
 
-        var sprite_back = PIXI.Sprite.fromImage("img/background_start@2x.png");
-        game_ratio = game_width/375;
+        var sprite_back = PIXI.Sprite.fromImage("img/background_2x.png");
+        game_ratio = game_width/750;
 
         sprite_back.scale.x = sprite_back.scale.y = game_ratio;
         stage.addChild(sprite_back);
 
 
-        var sprite_title =  PIXI.Sprite.fromImage("img/title@2x.png");
+        var sprite_title =  PIXI.Sprite.fromImage("img/title_2x.png");
         sprite_title.scale.x = sprite_title.scale.y = game_ratio;
         sprite_title.position.x = game_width * 0.1187;
         sprite_title.position.y = game_height * 0.1424;
@@ -45,12 +45,12 @@
 
 
         var style = {
-            font : '15px Arial',
+            font : '30px Arial',
             fill : '#ffffff'
         };
 
 
-        var sprite_grey = PIXI.Sprite.fromImage("img/background-拷贝-2@2x.png");
+        var sprite_grey = PIXI.Sprite.fromImage("img/background_2_2x.png");
         sprite_grey.scale.x = sprite_grey.scale.y = game_ratio;
 
 
@@ -64,13 +64,13 @@
 
 
 
-        var sprite_help_title = PIXI.Sprite.fromImage("img/title_help@2x.png");
+        var sprite_help_title = PIXI.Sprite.fromImage("img/title_help_2x.png");
         sprite_help_title.scale.x = sprite_help_title.scale.y = game_ratio;
         sprite_help_title.position.x = game_width * 0.331;
         sprite_help_title.position.y = game_height * 0.165;
 
 
-        var sprite_help = PIXI.Sprite.fromImage("img/help_start@2x.png");
+        var sprite_help = PIXI.Sprite.fromImage("img/help_start_2x.png");
         sprite_help.interactive = true;
         sprite_help.scale.x = sprite_help.scale.y = game_ratio;
         sprite_help.position.x = game_width * 0.3467;
@@ -86,7 +86,7 @@
             stage.addChild(sprite_text);
 
 
-            var sprite_button = PIXI.Sprite.fromImage("img/button_new-拷贝@2x.png");
+            var sprite_button = PIXI.Sprite.fromImage("img/button_new__2x.png");
             sprite_button.scale.x = sprite_button.scale.y = game_ratio;
             sprite_button.interactive = true;
             sprite_button.buttonMode = true;
@@ -105,7 +105,7 @@
         stage.addChild(sprite_help);
 
 
-        var sprite_start = n=new PIXI.Sprite.fromImage("img/開始遊戲@2x.png");
+        var sprite_start = n=new PIXI.Sprite.fromImage("img/startgame.png");
         sprite_start.scale.x = sprite_start.scale.y = game_ratio;
         sprite_start.position.x = game_width * 0.3453;
         sprite_start.position.y = game_height * 0.63;
